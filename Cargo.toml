@@ -1,12 +1,16 @@
 [package]
 name = "gaa_cupertino"
-version = "0.1.0"
+version = "0.0.1"
 edition = "2021"
+authors = ["Jusuf Gaa <jusufgaa@gmail.com>"]
+description = "A set of widgets library based on gpui"
+repository = "https://github.com/JusufGaa/GaaCupertino"
+license = "Apache-2.0"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-gpui = { git = "https://github.com/zed-industries/zed" }
+gpui = { git = "https://github.com/zed-industries/zed", version = "0.1.0" }
 uuid = "1.8.0"
 
 [[example]]
