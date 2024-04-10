@@ -1,4 +1,6 @@
 use gpui::*;
+
+#[derive(Clone)]
 pub struct GaaWindow {
     title: String,
     background: u32,
@@ -50,5 +52,12 @@ impl GaaWindow {
             title: Some((self.title).clone().into()),
             ..Default::default()
         }
+    }
+
+    pub fn open(mut self, cx: &mut AppContext) {
+        let options = self.get_window_options();
+        cx.open_window(options, |cx| {
+            cx.new_view(|_cx| self)
+        });
     }
 }

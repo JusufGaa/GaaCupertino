@@ -13,9 +13,7 @@ fn main() {
        
         let mut window = GaaWindow::new();
         window.set_title("Hello, world!");
-        cx.open_window(window.get_window_options(), |cx| {
-            cx.new_view(|_cx| window)
-        });
+        window.open(cx);
     });
 }
 
