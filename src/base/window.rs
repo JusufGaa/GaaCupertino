@@ -54,7 +54,7 @@ impl GaaWindow {
         }
     }
 
-    pub fn open(mut self, cx: &mut AppContext) {
+    pub fn load(mut self, cx: &mut AppContext) {
         let options = self.get_window_options();
         cx.open_window(options, |cx| {
             cx.new_view(|_cx| self)

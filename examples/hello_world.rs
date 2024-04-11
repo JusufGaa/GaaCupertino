@@ -11,9 +11,9 @@ fn main() {
             items: vec![MenuItem::action("Quit", Quit)],
         }]);
        
-        let mut window = GaaWindow::new();
+        let mut window = GaaWindow::new(); 
         window.set_title("Hello, world!");
-        window.open(cx);
+        window.load(cx);
     });
 }
 
