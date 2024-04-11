@@ -5,25 +5,23 @@ pub struct GaaWindow {
     title: String,
     background: u32,
     color: u32,
+    hidden: bool,
 }
 
 impl Render for GaaWindow {
-    fn render(&mut self, cx: &mut ViewContext<Self>) -> impl IntoElement {
-        cx.observe_window_activation(|_, cx| {
-            if cx.is_window_active() {
-                return;
-            };
-            cx.quit();
-        }).detach();
-        div()
+    fn render(&mut self, _cx: &mut ViewContext<Self>) -> impl IntoElement {
+        let result = div()
             .flex()
             .bg(rgb(self.background))
-            .size_full()
-            .justify_center()
-            .items_center()
+            .size_full();
+        let body = div()
+            .top(Pixels(8.0))
+            .left(Pixels(8.0))
+            .bg(rgb(0x00ff00))
             .text_xl()
             .text_color(rgb(self.color))
-            .child(format!("Hello, world!"))
+            .child(self.title.clone());
+        result.child(body)
     }
 }
 
@@ -33,6 +31,7 @@ impl GaaWindow {
             title: "".to_string(),
             background: 0xffffff,
             color: 0x000000,
+            hidden: true,
         }
     }
 
@@ -56,8 +55,18 @@ impl GaaWindow {
 
     pub fn load(mut self, cx: &mut AppContext) {
         let options = self.get_window_options();
-        cx.open_window(options, |cx| {
+        self.hidden = false;
+        cx.open_window(options, |cx: &mut WindowContext| {
+            if !cx.is_window_active() {
+                self.hidden = true;
+            };
             cx.new_view(|_cx| self)
         });
+    }
+
+    pub fn open(&mut self, cx: &mut AppContext) {
+        if !self.hidden { return; }
+        cx.active_window();
+        self.hidden = false;
     }
 }
